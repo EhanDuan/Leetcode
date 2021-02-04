@@ -1,0 +1,18 @@
+class Solution:
+    def defangIPaddr(self, address: str) -> str:
+        newAddress = ''  
+        oldIndex = 0
+        newIndex = 0
+        
+        while oldIndex < len(address):
+            if address[oldIndex] != '.':
+                newAddress += address[oldIndex]
+                newIndex += 1
+                oldIndex += 1
+            else:
+                newAddress += '[.]'
+                newIndex += 4
+                oldIndex += 1
+                
+        return newAddress    
+        
