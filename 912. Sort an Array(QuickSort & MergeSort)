@@ -1,0 +1,94 @@
+# QUICK SORT
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        # quick Sort
+        if nums == None:
+            return
+        if len(nums) == 1:
+            return nums
+        
+        self.quickSort(nums, 0, len(nums)-1)
+        return nums
+    
+        # Partition
+    def quickSort(self,nums,start,end):
+        # extreme condition
+        if start >= end:
+            return
+        
+        left, right = start, end
+        pivot = nums[(start+end)//2]
+        
+        while left <= right:                           # left <= right not left < right
+            while left <= right and nums[left] < pivot:
+                left += 1
+            while left <= right and nums[right] > pivot:
+                right -= 1
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+                
+        self.quickSort(nums,start, right)
+        self.quickSort(nums,left, end)
+
+******************************************************************************************************************************************************************
+        
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        # merge sort 
+        # extreme condition
+        if nums == None:
+            return
+        if len(nums) == 1:
+            return nums
+        
+        temp = [0 for _ in range(len(nums))]
+        
+        self.mergeSort(nums,0, len(nums)-1, temp)
+        return nums
+        
+        # Divide
+    def mergeSort(self, nums, start, end, temp):
+        mid = (start + end) // 2
+        if start >= end:
+            return
+        
+        self.mergeSort(nums, start, mid, temp)
+        self.mergeSort(nums, mid + 1, end, temp)
+        self.merge(nums, start, end, temp)
+    
+        # merge
+    def merge(self, nums, start, end, temp):
+        # Comparing numbers in left and right parts
+        mid = (start + end) // 2
+        left, right = start, mid + 1
+        index = start
+        
+        while left <= mid and right <= end:
+            if nums[left] < nums[right]:
+                temp[index] = nums[left]
+                left += 1
+                index += 1
+            else:
+                temp[index] = nums[right]
+                right += 1
+                index += 1
+                
+        while left <= mid:
+            temp[index] = nums[left]
+            left += 1
+            index += 1
+            
+        while right <= end:
+            temp[index] = nums[right]
+            right +=1
+            index += 1
+             
+        i = start
+        while i <= end:
+            nums[i] = temp[i]
+            i += 1
+        
+
