@@ -1,0 +1,41 @@
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        if nums == None or len(nums) == 0:
+            return nums
+        if len(nums) == 1:
+            return nums
+        
+        self.heap_sort(nums)
+        return nums
+
+    ## Heapify function
+    def heap_sort(self,nums):
+        n = len(nums)
+        for i in range((n - 2) // 2, -1, -1):
+            self.shift(nums, i, n - 1)
+        ## when for loop ends, heapification process is done
+        ## pop the numbers in order
+        for i in range(n-1, -1, -1):
+            ## i always points the end element of the new heap
+            nums[0], nums[i] = nums[i], nums[0]
+            self.shift(nums, 0, i-1) # i-1 means the high point in shift function
+
+    ## shift function of the heap
+    def shift(self, nums, low, high):
+        i = low
+        j = 2 * i + 1
+        temp = nums[low]
+        
+        while j <= high:
+            if j + 1 <= high and nums[j] < nums[j + 1]:
+                j = j + 1
+            if nums[j] > temp:
+                nums[i] = nums [j]
+                i = j
+                j = 2* i + 1
+            else:  ## temp bigger
+                nums[i] = temp
+                break
+        else:
+            nums[i] = temp
+                
